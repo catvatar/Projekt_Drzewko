@@ -211,29 +211,46 @@ void setup(){
   }
 }
 
+int DezoomS = 15;
+int zS = 15;
+int DescrollS = 10;
+int sS = 10;
+int zsl = 100;
+int ssl = 40;
+
 void keyPressed(){
+  zS *= 1.0668;
+  sS *= 1.1;
   //println(keyCode);
   switch(keyCode){
     case(38):
     //up - zoom in
-    len -= 10;
+    len -= zS;
     break;
     case(40):
     //down - zoom out
-    len += 10;
+    len += zS;
     break;
     case(37):
     //left - move left
-    mov -= 5;
+    mov -= sS;
     break;
     case(39):
     //right - move right
-    mov += 5;
+    mov += sS;
     break;
   }
   len = constrain(len,5,mlen-1);
   mov = constrain(mov,0,mlen-len-1);
+  zS = constrain(zS,15,zsl);
+  sS = constrain(sS,10,ssl);
 }
+
+void keyReleased(){
+  zS = DezoomS;
+  sS = DescrollS;
+}
+
 
 void draw(){
   if(!run){
